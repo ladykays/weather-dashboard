@@ -34,7 +34,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
   console.log("Current Date: " + date);
 
   // Create a div for displaying the current date and append it to the page
-  date = $("<div>")
+  date = $("<h2>")
     .addClass("date").text("( " + date + " )");
   $(".current").append(date);
 
@@ -50,7 +50,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     var apiKey = "430a3842b09d883ae73a59e0c1d18fa2"
 
     // Build the URL for querying the weather API
-    var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + apiKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&cnt=5&appid=" + apiKey; // use forecast endpoint instead of weather endpoint for a 5 day forcast. Also, add cnt=5 to get 5 day forecast
 
 
     // Make an AJAX call to the openweather API
@@ -60,16 +60,43 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     }).then(function (response) {
       console.log("Weather Information: " + response);
       console.log(queryURL);
-      console.log(city);
+      console.log(response);
+      //$(".current").text(JSON.stringify(response));
+
+      
+
+
+      var weatherIcon = response.list[0].weather[0].icon;
+      var iconURL = "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
+      console.log(iconURL);
+      var weatherIconEl = $("<img>").addClass("weather-icon").attr("src", iconURL);
+      $(".weather-icon").remove();
+      //$(".current").empty(); 
+      // TODO: Try to use the commented out code above to remove every element from the div 
+      // TODO: Try to change the color of the weather icon
+      $(".current").append(weatherIconEl);
+
+      
+      
+
+      //var temp = response.list[0].main.temp;
+      //$(".temp").empty(); // Empty the temp element
     });
     console.log(queryURL);
 
-    // Create a div for displaying the city name and append it to the page
-      var cityName = $("<div>")
-      .addClass("city-name").text(city); 
+    //Display the weather data for the current date on the page.
+    
+      var cityName = $("<h2>").addClass("city-name").text(city); 
       console.log("City: " + cityName);
-      $(".city-name").empty(); // Empty the city name div
-      $(".current").prepend(cityName);  // Prepending after emptying the div will ensure that only one city name is displayed at a time
+
+
+      $(".city-name").empty(); // Empty the city name element
+      $(".current").prepend(cityName);  // Prepending after emptying the element will ensure that only one city name is displayed at a time
+      
+
+
+
+      
   });
 
 
