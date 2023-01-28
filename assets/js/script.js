@@ -64,12 +64,21 @@ $(document).ready(function () { // Instructs the browser to only load script fil
       //$(".current").text(JSON.stringify(response));
 
       
+      //Display the weather data for the current date on the page.
+      var cityName = response.city.name;
+      cityName = $("<h2>").addClass("city-name").text(cityName); 
+      console.log("City: " + cityName);
+
+      $(".city-name").empty(); // Empty the city name element
+      $(".current").prepend(cityName);  // Prepending after emptying the element will ensure that only one city name is displayed at a time
 
 
+      // Get weather icon and display it on the page
       var weatherIcon = response.list[0].weather[0].icon;
       var iconURL = "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
       console.log(iconURL);
       var weatherIconEl = $("<img>").addClass("weather-icon").attr("src", iconURL);
+
       $(".weather-icon").remove();
       //$(".current").empty(); 
       // TODO: Try to use the commented out code above to remove every element from the div 
@@ -77,21 +86,33 @@ $(document).ready(function () { // Instructs the browser to only load script fil
       $(".current").append(weatherIconEl);
 
       
-      
+      // Get the temperature and display it on the page
+      var tempK = response.list[0].main.temp;
+      var tempC = (tempK - 273.15).toFixed(2);
+      var tempEl = $("<p>").addClass("temp").text("Temperature: " + tempC + " °C");
 
-      //var temp = response.list[0].main.temp;
-      //$(".temp").empty(); // Empty the temp element
+      $(".temp").remove(); // Empty the temp element
+      $(".current").append(tempEl);
+
+       // Get the humidity and display it on the page
+      var humidity = response.list[0].main.humidity;
+      var humidityEl = $("<p>").addClass("humidity").text("Humidity: " + humidity);
+
+      $(".humidity").remove(); // Empty the humidity element
+      $(".current").append(humidityEl); 
+
+      //Get the wind speed and display it on the page
+      var windSpeed = response.list[0].wind.speed;
+      var windSpeedEl = $("<p>").addClass("wind-speed").text("Wind Speed: wind" + windSpeed + " mph");
+
+      $(".wind-speed").remove(); // Empty the wind speed element
+      $(".current").append(windSpeedEl);
+      console.log(windSpeed);
+
     });
     console.log(queryURL);
 
-    //Display the weather data for the current date on the page.
-    
-      var cityName = $("<h2>").addClass("city-name").text(city); 
-      console.log("City: " + cityName);
-
-
-      $(".city-name").empty(); // Empty the city name element
-      $(".current").prepend(cityName);  // Prepending after emptying the element will ensure that only one city name is displayed at a time
+  
       
 
 
