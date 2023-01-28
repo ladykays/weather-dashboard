@@ -59,6 +59,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     // Create elements for displaying weather data
     //=============================================== 
     // Element for displaying the current date
+    var headingContainer = $("<div>").addClass("heading-container").prependTo(".current");
     date = $("<h2>")
       .addClass("date")
       .text("( " + date + " )"); 
@@ -68,11 +69,15 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     var tempEl = $("<p>").addClass("temp").text("Temperature: " + tempC + " °C");
     var humidityEl = $("<p>").addClass("humidity").text("Humidity: " + humidity);
     var windSpeedEl = $("<p>").addClass("wind-speed").text("Wind Speed:  " + windSpeed + " mph");
+    
 
     // Add the newly created elements to the DOM
-    $(".current").append(date);
-    $(".current").prepend(cityName);  // Prepending after emptying the element will ensure that only one city name is displayed at a time
-    $(".current").append(weatherIconEl);
+    //$(".current-weather-container").prepend(headingContainer);
+    $(cityName).appendTo(headingContainer);
+    $(date).appendTo(headingContainer);
+    $(weatherIconEl).appendTo(headingContainer);
+    
+    
     $(".current").append(tempEl);
     $(".current").append(humidityEl);
     $(".current").append(windSpeedEl);

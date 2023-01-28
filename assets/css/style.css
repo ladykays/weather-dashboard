@@ -12,15 +12,19 @@ body{
 
 /* Right Container Style */
 .current-weather-container {
-  flex-direction: row;
   border: 1px solid #000000;
   padding: 5rem 0;
   margin-top: 10px;
 }
 
-.current {
+.heading-container {
   display: flex;
+  margin-left: 10px;
 }
+
+/* .current {
+  display: flex;
+} */
 
 .city-name,
 .date {
@@ -29,9 +33,19 @@ body{
   font-weight: bold;
 }
 
+/* .city-name {
+  width: 30%;
+  background-color: red;
+}
+
 .date {
-  margin-left: 10px;
-} 
+  width: 70%;
+  background-color: blue;
+}  */
+
+.weather-icon {
+  color: purple;
+}
 
 /* TODO: Delete this later. The styling is just for me to see the sections I'm working on.*/
 .aside-container {
