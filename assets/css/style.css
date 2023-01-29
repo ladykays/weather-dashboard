@@ -22,15 +22,13 @@ body{
   margin-left: 10px;
 }
 
-/* .current {
-  display: flex;
-} */
-
 .city-name,
+.country,
 .date {
   color: rgb(21, 43, 123);
   font-size: 2.5rem;
   font-weight: bold;
+  margin: 0 5px;
 }
 
 /* .city-name {
@@ -45,6 +43,27 @@ body{
 
 .weather-icon {
   color: purple;
+}
+
+
+.forecast-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#forcast {
+  display: flex;
+  flex-direction: row;
+}
+.heading-5-day {
+  display: block;
+  width: 100%;
+}  
+
+.forcast-item {
+  width: 18%;
+  padding: 20px;
 }
 
 /* TODO: Delete this later. The styling is just for me to see the sections I'm working on.*/

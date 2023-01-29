@@ -50,6 +50,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
 
     // Assign weather data to variables
     var cityName = weatherData.city.name;
+    var country = weatherData.city.country;
     var weatherIcon = weatherData.list[0].weather[0].icon;
     var iconURL = "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png"; // Weather icon URL
     var tempK = weatherData.list[0].main.temp;
@@ -64,6 +65,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
       .addClass("date")
       .text("( " + date + " )"); 
     cityName = $("<h2>").addClass("city-name").text(cityName); 
+    country = $("<h2>").addClass("country").text(country);
     var weatherIconEl = $("<img>").addClass("weather-icon").attr("src", iconURL);
     var tempC = (tempK - 273.15).toFixed(2); // Convert Kelvin to Celsius
     var tempEl = $("<p>").addClass("temp").text("Temperature: " + tempC + " °C");
@@ -74,6 +76,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     // Add the newly created elements to the DOM
     //$(".current-weather-container").prepend(headingContainer);
     $(cityName).appendTo(headingContainer);
+    $(country).appendTo(headingContainer);
     $(date).appendTo(headingContainer);
     $(weatherIconEl).appendTo(headingContainer);
     
@@ -81,6 +84,69 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     $(".current").append(tempEl);
     $(".current").append(humidityEl);
     $(".current").append(windSpeedEl);
+
+    // 5 day forcast
+    //====================================
+    var heading5DayEl = $("<h2>")
+      .addClass("heading-5-day")
+      .appendTo("#forecast") 
+      .text("5-Day Forecast");
+
+    var forecastContainer = $("<div>").addClass("forecast-container").appendTo("#forecast");
+
+      for (var i = 0; i < 5; i++) {
+        var day = weatherData.list[i].dt_txt
+        var slicedDay = day.slice(0, 10);
+        console.log(day);
+        console.log(slicedDay);
+
+        var forcastWeatherIcon = weatherData.list[i].weather[0].icon;
+        var forcastIconURL = "http://openweathermap.org/img/wn/" + forcastWeatherIcon + "@2x.png";
+        
+
+        // Elements for displaying 5 day forcast
+        var day1El = $("<div>").addClass("card forecastItem day-1");
+        day1El.text(slicedDay);
+        var weatherIconEl1 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+
+        var day2El = $("<div>").addClass("card forecastItem day-2");
+        day2El.text(slicedDay);
+        var weatherIconEl2 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+
+        var day3El = $("<div>").addClass("card forecastItem day-3");
+        day3El.text(slicedDay);
+        var weatherIconEl3 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+
+        var day4El = $("<div>").addClass("card forecastItem day-4");
+        day4El.text(slicedDay);
+        var weatherIconEl4 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+
+        var day5El = $("<div>").addClass("card forecastItem day-5");
+        day5El.text(slicedDay);
+        var weatherIconEl5 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+      }
+
+    // Elements for displaying 5 day forcast
+    //var day1El = $("<div>").addClass("card day-1");
+    //day1El.text(slicedDay);
+    
+    
+    
+
+    // Add the newly created elements to the DOM
+    forecastContainer.append(day1El, day2El, day3El, day4El, day5El);
+
+    day1El.append(weatherIconEl1);
+    day2El.append(weatherIconEl2);
+    day3El.append(weatherIconEl3);
+    day4El.append(weatherIconEl4);
+    day5El.append(weatherIconEl5);
+    
+
+    // Assign weather data to variables
+    //for (var i = 0; i < 5; i++) {
+      
+    //}
     
   }
 
