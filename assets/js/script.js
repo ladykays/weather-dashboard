@@ -72,7 +72,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     var humidityEl = $("<p>").addClass("humidity").text("Humidity: " + humidity);
     var windSpeedEl = $("<p>").addClass("wind-speed").text("Wind Speed:  " + windSpeed + " mph");
     
-
+    
     // Add the newly created elements to the DOM
     //$(".current-weather-container").prepend(headingContainer);
     $(cityName).appendTo(headingContainer);
@@ -84,6 +84,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     $(".current").append(tempEl);
     $(".current").append(humidityEl);
     $(".current").append(windSpeedEl);
+
 
     // 5 day forcast
     //====================================
@@ -102,28 +103,48 @@ $(document).ready(function () { // Instructs the browser to only load script fil
 
         var forcastWeatherIcon = weatherData.list[i].weather[0].icon;
         var forcastIconURL = "http://openweathermap.org/img/wn/" + forcastWeatherIcon + "@2x.png";
+
+        var tempK5Day = weatherData.list[i].main.temp;
+        var humidity5Day = weatherData.list[i].main.humidity;
+        var windSpeed5Day = weatherData.list[i].wind.speed;
         
 
         // Elements for displaying 5 day forcast
         var day1El = $("<div>").addClass("card forecastItem day-1");
         day1El.text(slicedDay);
         var weatherIconEl1 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+        var tempC5Day = (tempK5Day - 273.15).toFixed(2); // Convert Kelvin to Celsius
+        var tempC5DayEl1 = $("<p>").addClass("temp").text("Temperature: " + tempC5Day + " °C");
+        var humidityEl1 = $("<p>").addClass("humidity").text("Humidity: " + humidity5Day);
+        var windSpeedEl1 = $("<p>").addClass("wind-speed").text("Wind Speed: " + windSpeed5Day + " mph");
 
         var day2El = $("<div>").addClass("card forecastItem day-2");
         day2El.text(slicedDay);
         var weatherIconEl2 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+        var tempC5DayEl2 = $("<p>").addClass("temp").text("Temperature: " + tempC5Day + " °C");
+        var humidityEl2 = $("<p>").addClass("humidity").text("Humidity: " + humidity5Day);
+        var windSpeedEl2 = $("<p>").addClass("wind-speed").text("Wind Speed: " + windSpeed5Day + " mph");
 
         var day3El = $("<div>").addClass("card forecastItem day-3");
         day3El.text(slicedDay);
         var weatherIconEl3 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+        var tempC5DayEl3 = $("<p>").addClass("temp").text("Temperature: " + tempC5Day + " °C");
+        var humidityEl3 = $("<p>").addClass("humidity").text("Humidity: " + humidity5Day);
+        var windSpeedEl3 = $("<p>").addClass("wind-speed").text("Wind Speed: " + windSpeed5Day + " mph");
 
         var day4El = $("<div>").addClass("card forecastItem day-4");
         day4El.text(slicedDay);
         var weatherIconEl4 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+        var tempC5DayEl4 = $("<p>").addClass("temp").text("Temperature: " + tempC5Day + " °C");
+        var humidityEl4 = $("<p>").addClass("humidity").text("Humidity: " + humidity5Day);
+        var windSpeedEl4 = $("<p>").addClass("wind-speed").text("Wind Speed: " + windSpeed5Day + " mph");
 
         var day5El = $("<div>").addClass("card forecastItem day-5");
         day5El.text(slicedDay);
         var weatherIconEl5 = $("<img>").addClass("weather-icon").attr("src", forcastIconURL);
+        var tempC5DayEl5 = $("<p>").addClass("temp").text("Temperature: " + tempC5Day + " °C");
+        var humidityEl5 = $("<p>").addClass("humidity").text("Humidity: " + humidity5Day);
+        var windSpeedEl5 = $("<p>").addClass("wind-speed").text("Wind Speed: " + windSpeed5Day + " mph");
       }
 
     // Elements for displaying 5 day forcast
@@ -136,11 +157,11 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     // Add the newly created elements to the DOM
     forecastContainer.append(day1El, day2El, day3El, day4El, day5El);
 
-    day1El.append(weatherIconEl1);
-    day2El.append(weatherIconEl2);
-    day3El.append(weatherIconEl3);
-    day4El.append(weatherIconEl4);
-    day5El.append(weatherIconEl5);
+    day1El.append(weatherIconEl1, tempC5DayEl1, humidityEl1, windSpeedEl1);
+    day2El.append(weatherIconEl2, tempC5DayEl2, humidityEl2, windSpeedEl2);
+    day3El.append(weatherIconEl3, tempC5DayEl3, humidityEl3, windSpeedEl3);
+    day4El.append(weatherIconEl4, tempC5DayEl4, humidityEl4, windSpeedEl4);
+    day5El.append(weatherIconEl5, tempC5DayEl5, humidityEl5, windSpeedEl5);
     
 
     // Assign weather data to variables
@@ -153,12 +174,9 @@ $(document).ready(function () { // Instructs the browser to only load script fil
 
   // Function to remove the weather data
   function clearWeather() {
-    $(".date").remove();
-    $(".city-name").remove();
-    $(".weather-icon").remove();
-    $(".temp").remove();
-    $(".humidity").remove();
-    $(".wind-speed").remove();
+    $(".date, .city-name, .country, .weather-icon, .temp, .humidity, .wind-speed").remove();
+    $("day1El, day2El, day3El, day4El, day5El").remove();
+    
   }
 
 

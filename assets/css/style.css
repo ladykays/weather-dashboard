@@ -48,13 +48,14 @@ body{
 
 .forecast-container {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
+  width: 90%;
 }
 
 #forcast {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .heading-5-day {
   display: block;
@@ -62,7 +63,7 @@ body{
 }  
 
 .forcast-item {
-  width: 18%;
+  width: 15%;
   padding: 20px;
 }
 
