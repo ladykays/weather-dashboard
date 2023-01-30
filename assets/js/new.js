@@ -28,9 +28,22 @@ $(document).ready(function () { // Instructs the browser to only load script fil
       console.log(response);
       var date = moment().format("DD/MM/YYYY"); // Get the current date using moment.js and store it in a variable called date
       console.log("Current Date: " + date);
-      
-    });
-  });
+      data();
+
+      function data() {
+        // Assign weather data to variables
+        var cityName = response.name;
+        var country = response.country;
+        var weatherIcon = response.weather[0].icon;
+        var iconURL = "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png"; // Weather icon URL
+        var tempK = response.main.temp;
+        var humidity = response.main.humidity;
+        var windSpeed = response.wind.speed;
+
+        console.log(cityName, country, weatherIcon, iconURL, tempK, humidity, windSpeed);
+      } // End of data function
+    }); // End function response
+  }); // End search button event listener
 
 // Function to remove the weather data
 function clearWeather() {
