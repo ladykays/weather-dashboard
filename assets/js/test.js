@@ -99,14 +99,13 @@ $(document).ready(function () { // Instructs the browser to only load script fil
         $.ajax({
           url: forecastQueryURL,
           method: "GET"
-          }).then(function (response) {
-            console.log(response);
-            
+          }).then(function (forecastResponse) {
+            console.log(forecastResponse);
 
             for (var i = 0; i < 5; i++) {
               // Multiply by 1000 because the timestamp in the list array is in seconds, and the Date constructor takes milliseconds
               // 
-              var date = new Date(response.list[i].dt * 1000).toLocaleDateString(); 
+              var date = new Date((forecastResponse.list[(i * 8)].dt) * 1000).toLocaleDateString(); 
               console.log(date);
             } // End of for loop
           }); // End of forecastQueryURL AJAX call
