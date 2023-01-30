@@ -10,10 +10,17 @@ $(document).ready(function () { // Instructs the browser to only load script fil
   // Event listener for the search button
   $("#search-button").on("click", function (event) {
     event.preventDefault();
-    city = $("#search-input").val();
+    
+    city = $("#search-input").val(); // Updates the value of the search input
     getData(city);
     console.log(city);
+    clearWeather();
   });
+
+  // Function to clear weather data
+  function clearWeather() {
+    $("#search-input").val(""); // Clears the value of the search input
+  }
 
   /* function setup() {
     var button = $("#search-button");
@@ -23,19 +30,34 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     //console.log(input);
   } */
 
+  // Make an AJAX request to the OpenWeatherMap API to retrieve  weather data
   function getData() {
     var queryURL = apiURL + city + apiKey + units;
+    
     $.ajax({
       url: queryURL,
       method: "GET"
-      }).then(gotData);
+      }).then(gotData)
+        .then(getForecast);
+      
       console.log(queryURL);
-      //console.log(weather);
+      //console.log(weather); 
   }
 
-  function gotData(data) {
-    weather = data;
-    console.log(data);
+  function gotData(city) {
+    weather = city;
+    console.log(city);
+    clearWeather();
+  }
+
+  function getForecast(data) {
+    lat = weather.coord.lat; // Sets the value "lat" to the latitude of the city from the weather data
+    lon = weather.coord.lon; // Sets the value "lon" to the longitude of the city from the weather data
+    apiURL = "https://api.openweathermap.org/data/2.5/forecast?lat="; // Sets the value of "apiURL" to a new url
+    queryURL = apiURL + lat + "&lon=" + lon + "&cnt=5" + apiKey + units; // Build the query URL using the latitude and longitude information
+    console.log(lat);
+    console.log(lon);
+    console.log(queryURL);
   }
 
   /* 
