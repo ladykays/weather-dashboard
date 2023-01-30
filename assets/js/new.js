@@ -11,4 +11,29 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     return queryURL;   
   }
   console.log("Query URL: " + buildQueryURL());
+
+  // CLICK HANDLER
+  //==============================
+  // Search button event listener
+  $("#search-button").on("click", function (event) {
+    event.preventDefault();
+    clearWeather();
+    city = $("#search-input").val(); // Updates the value of the search input
+    queryURL = buildQueryURL();
+    // Make an AJAX call to the openweather API
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function (response) {
+      console.log(response);
+      var date = moment().format("DD/MM/YYYY"); // Get the current date using moment.js and store it in a variable called date
+      console.log("Current Date: " + date);
+      
+    });
+  });
+
+// Function to remove the weather data
+function clearWeather() {
+  
+}  
 }); // End of document ready function
