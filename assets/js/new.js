@@ -43,9 +43,8 @@ $(document).ready(function () { // Instructs the browser to only load script fil
 
         console.log(cityName, country, currentWeatherIcon, iconURL, tempK, humidity, windSpeed);
 
-        // Create elements for displaying weather data
-        //=============================================== 
-        // Element for displaying the current date
+        // Create elements for displaying current weather data
+        //====================================================== 
         var headingContainer = $("<div>")
           .addClass("heading-container")
           .prependTo(".current");
@@ -99,26 +98,91 @@ $(document).ready(function () { // Instructs the browser to only load script fil
         $.ajax({
           url: forecastQueryURL,
           method: "GET"
-          }).then(function (response) {
-            console.log(response);
+        }).then(function (forecastResponse) {
+          console.log(forecastResponse);
+            
+          var title5DayEl = $("<h2>")
+            .addClass("heading-5-day")
+            .appendTo("#forecast")
+            .text("5-Day Forecast");
+
+          var forecastContainerEl = $("<div>")
+            .addClass("forecast-container")
+            .appendTo("#forecast");
+
+          for (var i = 0; i < 5; i++) {
+            // Multiply by 1000 because the timestamp in the list array is in seconds, and the Date constructor takes milliseconds
+            // 
+            var date = new Date(forecastResponse.list[i].dt * 1000).toLocaleDateString(); 
+            console.log(date);
+
+            // Create elements for displaying current weather data
+            //====================================================== 
+            
+              //.appendTo("#forecast") 
+              //.text("5-Day Forecast");
+
+            var forecastData = $("<div>")
+              .addClass("forecast-data")
+              .appendTo(forecastContainerEl);
+
+            var h4El = $("<h4>")
+              .addClass("forecast-date")
+              //.appendTo(forecastContainer)
+              .text(date);
+
+            var tempEl = $("<div>")
+              .addClass("data-element")
+              //.appendTo(forecastContainer);
+
+            var windSpeedEl = $("<div>")
+              .addClass("data-element");
+
+            var humidityEl = $("<div>")
+             .addClass("data-element");
+
+            var iconEl = $("<img>")
+             .addClass("forecast-icon");
+
+
+
+            // Append the newly created elements to the DOM
+            
+            //title5DayEl.append(forecastContainer);
+            forecastData.append(h4El, iconEl, tempEl, windSpeedEl, humidityEl);
             
 
-            for (var i = 0; i < 5; i++) {
-              // Multiply by 1000 because the timestamp in the list array is in seconds, and the Date constructor takes milliseconds
-              // 
-              var date = new Date(response.list[i].dt * 1000).toLocaleDateString(); 
-              console.log(date);
-            } // End of for loop
-          }); // End of forecastQueryURL AJAX call
+            // Update the page with the newly created elements
+            //====================================================== 
+            var iconURL = "http://openweathermap.org/img/wn/" + forecastResponse.list[i].weather[0].icon + ".png"; // Weather icon URL
+            var tempK = forecastResponse.list[i].main.temp;
+            var tempC = (tempK - 273.15).toFixed(2); // Converts Kelvin to Celsius and rounds it to 2 decimal places
+            console.log(tempK);
+            console.log(tempC);
+            var windSpeed = forecastResponse.list[i].wind.speed;
+            var humidity = forecastResponse.list[i].main.humidity;
 
-        
+            title5DayEl.text("5-Day Forecast");
+            iconEl.attr("src", iconURL);
+            tempEl.text("Temp: " + tempC + " °C");
+            windSpeedEl.text("Wind Speed: " + windSpeed + " mph");
+            humidityEl.text("Humidity: " + humidity);
+            
+
+
+
+            //TODO: Get only time that atarts at midnight 00:00:00
+          } // End of for loop
+          
+        }); // End of function forecastResponse
+
       } // End of weatherForecast function
 
     }); // End function response
   }); // End of click event function
 
-// Function to remove the weather data
-function clearWeather() {
+  // Function to remove the weather data
+  function clearWeather() {
   
 }  
 }); // End of document ready function
