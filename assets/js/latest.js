@@ -18,6 +18,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     event.preventDefault();
     //clearWeather();
     $("#today").empty();
+    $("#forecast").empty();
     city = $("#search-input").val(); // Updates the value of the search input
     searchHistory();
     queryURL = buildQueryURL();
@@ -75,7 +76,7 @@ $(document).ready(function () { // Instructs the browser to only load script fil
 
         // Add the newly created elements to the DOM
         headingContainer.append(cityName, country, today, weatherIconEl);
-        $(".current").append(tempEl, humidityEl, windSpeedEl);
+        $(".current").append(tempEl, windSpeedEl,  humidityEl,);
         
       } // end currentWeather function
 
@@ -97,29 +98,6 @@ $(document).ready(function () { // Instructs the browser to only load script fil
         }).then(function (forecastResponse) {
           console.log(forecastResponse);
             
-          
-
-          // Only get the dt_txt of "00:00:00" timestamp
-          /* for (var i = 0; i < forecastResponse.list.length; i++) {
-            if (forecastResponse.list[i].dt_txt.indexOf("00:00:00") !== -1) {
-              
-              var date = new Date(forecastResponse.list[i].dt_txt * 1000).toLocaleDateString(); 
-              console.log(date); 
-
-              var forecastData = $("<div>")
-              .addClass("forecast-data")
-              .appendTo(forecastContainerEl);
-
-              var h4El = $("<h4>")
-              .addClass("forecast-date")
-              //.appendTo(forecastContainer)
-              .text(date); 
-
-              forecastContainerEl.append(h4El);
-              
-            }
-            
-          } */
 
           var title5DayEl = $("<h2>")
             .addClass("heading-5-day")
@@ -135,8 +113,6 @@ $(document).ready(function () { // Instructs the browser to only load script fil
             var date = new Date((forecastResponse.list[((i + 1) * 8) - 1].dt) * 1000).toLocaleDateString();
             console.log(date);  
 
-            //var date = document.getElementsByClassName("forecast-date" + (i + 1)).innerHTML = weekDay[checkDay(i)];
-            //var date = weekDay[checkDay(i)];
             // Create elements for displaying current weather data
             //====================================================== 
             
@@ -185,22 +161,9 @@ $(document).ready(function () { // Instructs the browser to only load script fil
             humidityEl.text("Humidity: " + humidity);
             
 
-            //TODO: Get only time that atarts at midnight 00:00:00
           } // End of for loop
           
         }); // End of function forecastResponse
-        
-        /* // Function to check for day 
-        var d = new Date();
-        var weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-        function checkDay(day) {
-          if (day + d.getDay() > 6) {
-            return day + d.getDay() - 7;
-          } else {
-            return day + d.getDay();
-          }
-        } // end function checkDay */
 
       } // End of weatherForecast function
 
@@ -215,37 +178,28 @@ $(document).ready(function () { // Instructs the browser to only load script fil
     
     
     // Create and append elements for saved search history
-    /* var historyContainerEl = $("<div>")
-      .addClass("history-container")
-      .appendTo("#list-group"); */
-
-    var ulEl = $("<ul>").addClass("history-list-group")
-    .appendTo("#history");
+    var ulEl = $("<ul>").addClass("list-group")
+      .appendTo("#history");
 
     var liEl = $("<li>");
       
       
 
     // Add city to history list
-    var citiesList = cities.length;
     cities.push(cityName);
     localStorage.setItem(cityName, cities);
-    //cities = JSON.parse(localStorage.getItem("cities"));
     console.log(cities);
     cities.forEach(function (cityName) {
       liEl.addClass("list-group-item").text(cityName).appendTo(ulEl);
     }); 
-    /* for (var i = 0; i < cities.length; i++) {
-      liEl.addClass("list-group-item").text(cityName).appendTo(ulEl);
-    } */
-    
-      
-    
-  } // End of saveHistory function
-  searchHistory();
-  // Function to remove the weather data
-  function clearWeather() {
-
   
-  } // End of function clearWeather
+  } // end of search history function
+
+  // Event listener for a click on any search history
+ /*  $document.on("click", ".list-group-item", function() {
+    city = $(this).attr("data-name
+  } */
+
+  searchHistory();
+
 }); // End of document ready function
