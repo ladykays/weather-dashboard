@@ -13,7 +13,7 @@ $(document).ready(function () {
 
   function getWeatherData() {
     city = $("#search-input").val(); // Updates the value of the search input
-    
+    searchHistory();
     queryURL = buildQueryURL();
     // Make an AJAX call to the openweather API to get the current weather
     $.ajax({
@@ -162,17 +162,61 @@ $(document).ready(function () {
 
   } // end of getWeatherData function
   
+  // Search history function
+  function searchHistory() {
+    var cityName = $("#search-input").val();
+    var cities = [];
+    var liEl = $("<li>");
+      
+      
+
+    // Add city to history list
+    cities.push(cityName);
+    localStorage.setItem(cityName, cities);
+    console.log(cities);
+     cities.forEach(function (cityName) {
+      liEl.addClass("list-group-item").text(cityName);
+      liEl.attr("data-name", cityName);
+      $("ul").append(liEl);
+    });  
+    
+  } // end of search history function
+
+
+  /* function pastSearch(event) {
+    //city = $(this).attr("data-value", cityName);
+    var liEl = event.target;
+    if (event.target.matches("li")) {
+      city = liEl.textContent.trim();
+      getWeatherData();
+    }
+  } */
 
   // CLICK HANDLERS
   //==============================
   // Search button event listener
   $("#search-button").on("click", function (event) {
     event.preventDefault();
-    //clearWeather();
     $("#today").empty();
     $("#forecast").empty();
     getWeatherData();
-  }); // end of search button event handler
+  }); 
+
+  // Click handler to clear form when user clicks in the search field
+  $("#search-input").on("click", function () {
+    $(this).val("");
+  });
+
+  // Event listener for a click on any search history
+  $(document).on("click", ".list-group-item", function(event) {
+    /* $("#search-input").empty();
+    $("#today").empty();
+    $("#forecast").empty(); */
+    city = $(this).text();
+    $("search-input").val(city);
+    getWeatherData();
+    //pastSearch();
+  }); 
 
 
 }); // end of the document ready function
