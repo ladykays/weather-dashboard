@@ -9,11 +9,11 @@ $(document).ready(function () {
     return queryURL;   
   }
   console.log("Query URL: " + buildQueryURL());
-
+  //city = $("#search-input").val(); // Updates the value of the search input
 
   function getWeatherData() {
-    city = $("#search-input").val(); // Updates the value of the search input
-    searchHistory();
+    
+    
     queryURL = buildQueryURL();
     // Make an AJAX call to the openweather API to get the current weather
     $.ajax({
@@ -184,13 +184,13 @@ $(document).ready(function () {
 
 
   /* function pastSearch(event) {
-    //city = $(this).attr("data-value", cityName);
+    city = $(this).attr("data-value", cityName);
     var liEl = event.target;
     if (event.target.matches("li")) {
       city = liEl.textContent.trim();
       getWeatherData();
     }
-  } */
+  }  */
 
   // CLICK HANDLERS
   //==============================
@@ -200,6 +200,7 @@ $(document).ready(function () {
     $("#today").empty();
     $("#forecast").empty();
     getWeatherData();
+    searchHistory();
   }); 
 
   // Click handler to clear form when user clicks in the search field
@@ -208,12 +209,11 @@ $(document).ready(function () {
   });
 
   // Event listener for a click on any search history
-  $(document).on("click", ".list-group-item", function(event) {
-    /* $("#search-input").empty();
+  $(document).on("click", ".list-group-item", function() {
     $("#today").empty();
-    $("#forecast").empty(); */
-    city = $(this).text();
-    $("search-input").val(city);
+    $("#forecast").empty(); 
+    city = $(this).attr("data-name");
+    //$("search-input").val(city);
     getWeatherData();
     //pastSearch();
   }); 
