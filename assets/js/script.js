@@ -165,32 +165,24 @@ $(document).ready(function () {
   // Search history function
   function searchHistory() {
     var cityName = $("#search-input").val();
-    var cities = [];
+    var cities = JSON.parse(localStorage.getItem("cities")) || [];
+    //var cities = [];
     var liEl = $("<li>");
-      
-      
 
-    // Add city to history list
-    cities.push(cityName);
-    localStorage.setItem(cityName, cities);
-    console.log(cities);
-     cities.forEach(function (cityName) {
+    // Only add a city to history if it is not already on the list and if cityName is not empty
+    if (!cities.includes(cityName) && cityName !== "") {
+      cities.unshift(cityName);
+      localStorage.setItem("cities", JSON.stringify(cities));
+      console.log(cities);
+
       liEl.addClass("list-group-item").text(cityName);
       liEl.attr("data-name", cityName);
-      $("ul").append(liEl);
-    });  
+      $("ul").prepend(liEl);
+    } 
+       
     
   } // end of search history function
 
-
-  /* function pastSearch(event) {
-    city = $(this).attr("data-value", cityName);
-    var liEl = event.target;
-    if (event.target.matches("li")) {
-      city = liEl.textContent.trim();
-      getWeatherData();
-    }
-  }  */
 
   // CLICK HANDLERS
   //==============================
@@ -199,6 +191,7 @@ $(document).ready(function () {
     event.preventDefault();
     $("#today").empty();
     $("#forecast").empty();
+    city = $("#search-input").val(); // Updates the value of the search input
     getWeatherData();
     searchHistory();
   }); 
@@ -213,9 +206,7 @@ $(document).ready(function () {
     $("#today").empty();
     $("#forecast").empty(); 
     city = $(this).attr("data-name");
-    //$("search-input").val(city);
     getWeatherData();
-    //pastSearch();
   }); 
 
 
