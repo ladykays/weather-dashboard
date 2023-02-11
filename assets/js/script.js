@@ -22,7 +22,7 @@ $(document).ready(function () {
       method: "GET"
     }).then(function (response) {
       console.log(response);
-      var today = moment().format("DD/MM/YYYY"); // Get the current date using moment.js and store it in a variable called "today"
+      var today = moment().format("dddd DD/MM/YYYY"); // Get the current date using moment.js and store it in a variable called "today"
       console.log("Current Date: " + today);
       getCurrentWeather();
       getWeatherForecast();
@@ -46,7 +46,7 @@ $(document).ready(function () {
           .prependTo(".current");
         today = $("<h2>")
           .addClass("today")
-          .text("( " + today + " )"); 
+          .text(" - " + today); 
         cityName = $("<h2>")
           .addClass("city-name")
           .text(cityName); 
@@ -111,12 +111,14 @@ $(document).ready(function () {
               .appendTo(forecastContainerEl);
 
             var h4El = $("<h4>")
-              .addClass("forecast-date mt-3 ml-3")
+              .addClass("forecast-date mt-3 ml-2")
               .text(date); 
 
             var tempEl = $("<div>")
-              .addClass("data-element")
-              //.appendTo(forecastContainer);
+              .addClass("data-element");
+
+            var windSpeedEl = $("<div>")
+              .addClass("data-element");
 
             var humidityEl = $("<div>")
              .addClass("data-element");
@@ -127,7 +129,7 @@ $(document).ready(function () {
 
 
             // Append the newly created elements to the DOM
-            forecastData.append(h4El, iconEl, tempEl, humidityEl);
+            forecastData.append(h4El, iconEl, tempEl, windSpeedEl, humidityEl);
             
 
             // Update the page with the newly created elements
@@ -137,11 +139,13 @@ $(document).ready(function () {
             var tempC = (tempK - 273.15).toFixed(2); // Converts Kelvin to Celsius and rounds it to 2 decimal places
             console.log(tempK);
             console.log(tempC);
+            var windSpeed = forecastResponse.list[i].wind.speed;
             var humidity = forecastResponse.list[i].main.humidity;
 
             title5DayEl.text("5-Day Forecast");
             iconEl.attr("src", iconURL);
             tempEl.text("Temp: " + tempC + " °C");
+            windSpeedEl.text("WindSpeed: " + windSpeed);
             humidityEl.text("Humidity: " + humidity);
             
 

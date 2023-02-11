@@ -4,6 +4,11 @@
   --darkText: #117a88; 
 }
 
+p {
+  font-size: 20px;
+  color: #0d555f;
+}
+
 /* Header Section */
 .weather-header {
   background-color: var(--darkBackground);
