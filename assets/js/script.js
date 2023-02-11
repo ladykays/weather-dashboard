@@ -4,16 +4,17 @@ $(document).ready(function () {
   var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=";
 
   // Build the URL for querying the weather API
+  //===============================================
   function buildQueryURL() {
     var queryURL = apiURL + city + apiKey;
     return queryURL;   
   }
   console.log("Query URL: " + buildQueryURL());
-  //city = $("#search-input").val(); // Updates the value of the search input
 
-  function getWeatherData() {
-    
-    
+
+  // Function to get weather data from openweather API
+  //====================================================
+  function getWeatherData() {  
     queryURL = buildQueryURL();
     // Make an AJAX call to the openweather API to get the current weather
     $.ajax({
@@ -40,7 +41,6 @@ $(document).ready(function () {
         console.log(cityName, country, currentWeatherIcon, iconURL, tempK, humidity, windSpeed);
 
         // Create elements for displaying current weather data
-        //====================================================== 
         var headingContainer = $("<div>")
           .addClass("heading-container")
           .prependTo(".current");
@@ -101,16 +101,11 @@ $(document).ready(function () {
           $("#forecast").append(title5DayEl, forecastContainerEl);
           for (var i = 0; i < 5; i++) {
             // Multiply by 1000 to convert the Unix timestamp in seconds to miliseconds
-            //var date = new Date(forecastResponse.list[i].dt * 1000).toLocaleDateString(); 
             var date = new Date((forecastResponse.list[((i + 1) * 8) - 1].dt) * 1000).toLocaleDateString();
             console.log(date);  
 
             // Create elements for displaying current weather data
             //====================================================== 
-            
-              //.appendTo("#forecast") 
-              //.text("5-Day Forecast");
-
             var forecastData = $("<div>")
               .addClass("forecast-data")
               .appendTo(forecastContainerEl);
@@ -133,8 +128,6 @@ $(document).ready(function () {
 
 
             // Append the newly created elements to the DOM
-            
-            //title5DayEl.append(forecastContainer);
             forecastData.append(h4El, iconEl, tempEl, humidityEl);
             
 
@@ -162,26 +155,52 @@ $(document).ready(function () {
 
   } // end of getWeatherData function
   
-  // Search history function
-  function searchHistory() {
-    var cityName = $("#search-input").val();
-    var cities = JSON.parse(localStorage.getItem("cities")) || [];
-    //var cities = [];
+  // Search history
+  //===============================
+
+  // Function to add city to search history on the page
+  function displaySearchHistory(city) {
     var liEl = $("<li>");
-
-    // Only add a city to history if it is not already on the list and if cityName is not empty
-    if (!cities.includes(cityName) && cityName !== "") {
-      cities.unshift(cityName);
-      localStorage.setItem("cities", JSON.stringify(cities));
-      console.log(cities);
-
-      liEl.addClass("list-group-item").text(cityName);
-      liEl.attr("data-name", cityName);
-      $("ul").prepend(liEl);
-    } 
-       
+    liEl.addClass("list-group-item").text(city);
+    liEl.attr("data-name", city);
+    $("ul").prepend(liEl);
+  }
     
-  } // end of search history function
+  // Function to save city to history
+  function saveHistory(city) {
+    // Get cities from local storage
+    getSearchHistory();
+    
+
+    // Add city to local storage array
+    cities.push(city)
+    
+    // Set local storage
+    setSearchHistory();
+  }
+    
+  // Function to get cities from local storage
+  function getSearchHistory() {
+    if (localStorage.getItem("cities") == null) {
+      cities = [];
+    } else {
+      cities = JSON.parse(localStorage.getItem("cities"));
+    }
+  }
+    
+  // Function to set local storage
+  function setSearchHistory() {
+    localStorage.setItem("cities", JSON.stringify(cities));
+  }
+    
+  // On page load, get the search history from local storage
+  $(document).ready(function() {
+    getSearchHistory();
+    // Display the search history on the page
+    cities.forEach(function(city) {
+      displaySearchHistory(city);
+    });
+  });
 
 
   // CLICK HANDLERS
@@ -193,13 +212,24 @@ $(document).ready(function () {
     $("#forecast").empty();
     city = $("#search-input").val(); // Updates the value of the search input
     getWeatherData();
-    searchHistory();
+    saveHistory(city);
+    displaySearchHistory(city)
   }); 
 
   // Click handler to clear form when user clicks in the search field
   $("#search-input").on("click", function () {
     $(this).val("");
   });
+
+  // Event handler for tapping the enter button on the keyboard
+  $("#search-input").on("keydown", function (event) {
+    if (event.key === "Enter" || event.keyCode === 13) {
+      //event.keyCode is depreciated. Left here to support older browsers
+      event.preventDefault();
+      $("#search-button").click();
+    }
+  });
+
 
   // Event listener for a click on any search history
   $(document).on("click", ".list-group-item", function() {
