@@ -158,57 +158,6 @@ $(document).ready(function () {
   // Search history
   //===============================
 
-  /* // Function to add city to search history on the page
-  function displaySearchHistory(city) {
-    var liEl = $("<li>");
-    liEl.addClass("list-group-item").text(city);
-    liEl.attr("data-name", city);
-    $("ul").prepend(liEl);
-  }
-    
-  // Function to save city to history
-  function saveHistory(city) {
-    // Get cities from local storage
-    getSearchHistory();
-    
-
-    // Check if the city already exists in the local storage array
-  if (!cities.includes(city)) {
-    // Add city to local storage array
-    cities.push(city)
-    
-    // Set local storage
-    setSearchHistory();
-    
-    // Display the city on the page
-    //displaySearchHistory(city);
-  }
-  }
-    
-  // Function to get cities from local storage
-  function getSearchHistory() {
-    if (localStorage.getItem("cities") == null) {
-      cities = [];
-    } else {
-      cities = JSON.parse(localStorage.getItem("cities"));
-    }
-  }
-    
-  // Function to set local storage
-  function setSearchHistory() {
-    localStorage.setItem("cities", JSON.stringify(cities));
-  }
-    
-  // On page load, get the search history from local storage
-  $(document).ready(function() {
-    getSearchHistory();
-    // Display the search history on the page
-    cities.forEach(function(city) {
-      displaySearchHistory(city);
-    });
-  }); */
-
-
   // Function to add city to search history on the page
   function displaySearchHistory(city) {
     // Check if the city already exists on the page
@@ -230,12 +179,10 @@ $(document).ready(function () {
     }
   }
 
-  
   // Function to set local storage
   function setSearchHistory() {
     localStorage.setItem("cities", JSON.stringify(cities));
   }
-
 
   // Function to save city to history
   function saveHistory(city) {
@@ -255,8 +202,6 @@ $(document).ready(function () {
     }
   }
 
-  
-
   // On page load, get the search history from local storage
   $(document).ready(function() {
     getSearchHistory();
@@ -265,7 +210,6 @@ $(document).ready(function () {
       displaySearchHistory(city);
     });
   });
-
 
 
   // CLICK HANDLERS
