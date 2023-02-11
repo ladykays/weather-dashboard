@@ -158,7 +158,7 @@ $(document).ready(function () {
   // Search history
   //===============================
 
-  // Function to add city to search history on the page
+  /* // Function to add city to search history on the page
   function displaySearchHistory(city) {
     var liEl = $("<li>");
     liEl.addClass("list-group-item").text(city);
@@ -172,11 +172,17 @@ $(document).ready(function () {
     getSearchHistory();
     
 
+    // Check if the city already exists in the local storage array
+  if (!cities.includes(city)) {
     // Add city to local storage array
     cities.push(city)
     
     // Set local storage
     setSearchHistory();
+    
+    // Display the city on the page
+    //displaySearchHistory(city);
+  }
   }
     
   // Function to get cities from local storage
@@ -200,7 +206,66 @@ $(document).ready(function () {
     cities.forEach(function(city) {
       displaySearchHistory(city);
     });
+  }); */
+
+
+  // Function to add city to search history on the page
+  function displaySearchHistory(city) {
+    // Check if the city already exists on the page
+    if ($("li[data-name='" + city + "']").length == 0) {
+      var liEl = $("<li>");
+      liEl.addClass("list-group-item").text(city);
+      liEl.attr("data-name", city);
+      $("ul").prepend(liEl);
+    }
+  }
+
+
+  // Function to get cities from local storage
+  function getSearchHistory() {
+    if (localStorage.getItem("cities") == null) {
+      cities = [];
+    } else {
+      cities = JSON.parse(localStorage.getItem("cities"));
+    }
+  }
+
+  
+  // Function to set local storage
+  function setSearchHistory() {
+    localStorage.setItem("cities", JSON.stringify(cities));
+  }
+
+
+  // Function to save city to history
+  function saveHistory(city) {
+    // Get cities from local storage
+    getSearchHistory();
+    
+    // Check if the city already exists in the local storage array
+    if (!cities.includes(city)) {
+      // Add city to local storage array
+      cities.push(city);
+      
+      // Set local storage
+      setSearchHistory();
+      
+      // Display the city on the page
+      displaySearchHistory(city);
+    }
+  }
+
+  
+
+  // On page load, get the search history from local storage
+  $(document).ready(function() {
+    getSearchHistory();
+    // Display the search history on the page
+    cities.forEach(function(city) {
+      displaySearchHistory(city);
+    });
   });
+
 
 
   // CLICK HANDLERS
