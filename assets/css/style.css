@@ -1,8 +1,72 @@
+:root {
+  --darkBackground: #1AB0C3;
+  --lightBackground: #AFEDF4;
+  --darkText: #117a88; 
+}
+
+/* Header Section */
+.weather-header {
+  background-color: var(--darkBackground);
+  color: #FFFFFF;
+}
+
+.content {
+  background-color: var(--lightBackground);
+}
+
+/* Left container Style */
+#form-heading {
+  color: var(--darkText);
+}
+
+#search-input {
+  background-color: #ffffff;
+  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,.15);
+}
+
+#search-button {
+  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,.15);
+  border: 1px solid #117a88;
+  background-color: var(--darkBackground);
+  color: #ffffff;
+  border-radius: 5rem;
+  cursor: pointer;
+  margin:5px
+}
+
+#search-button:hover,
+#delete-history:hover {
+  background-color: #AFEDF4;
+  border: 1px solid #117a88;
+  color: #117a88;
+}
+
+.searched-city,
+#delete-history {
+  cursor: pointer;
+}
+
+.searched-city:hover {
+  background-color: #AFEDF4;
+}
+
+#history,
+.current-weather-container,
+.forecast-data {
+  border: 1px solid var(--darkText);
+  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,.15);
+}
+
+#delete-history {
+  background-color: var(--darkBackground);
+  color: #ffffff;
+}
+
 /* Right Container Style */
 .current-weather-container {
-  border: 1px solid #000000;
   padding: 5rem 0;
   margin-top: 10px;
+  background-color: var(--lightBackground);
 }
 
 .heading-container {
@@ -12,22 +76,13 @@
 
 .city-name,
 .country,
-.date {
-  color: rgb(21, 43, 123);
+.date,
+.today {
+  color: var(--darkText);
   font-size: 2.5rem;
   font-weight: bold;
   margin: 0 5px;
 }
-
-/* .city-name {
-  width: 30%;
-  background-color: red;
-}
-
-.date {
-  width: 70%;
-  background-color: blue;
-}  */
 
 .weather-icon {
   color: purple;
@@ -38,35 +93,31 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  padding: 0 5px;
+}
+
+.forecast-date {
+  color: var(--darkText);
 }
 
 .forecast-data {
   width: 20%;
-  background-color: #ffffff;
   margin: 10px;
-  
+  border: 1px solid var(--darkText);
+  padding: 10px;
 }
 
 #forcast {
   display: flex;
   width: 100%;
   margin: 10px;
+  padding: 0 15px;
 }
 
 .heading-5-day {
   display: block;
   width: 100%;
+  padding: 0 15px;
+  color: var(--darkText);
 }  
 
-#delete-history {
-  background-color: #991223;
-  color: #ffffff;
-}
-/* TODO: Delete this later. The styling is just for me to see the sections I'm working on.*/
-.aside-container {
-  background-color: coral;
-}
-
-.right-container {
-  background-color: rgb(13, 211, 138);
-}

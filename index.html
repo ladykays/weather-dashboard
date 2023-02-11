@@ -14,21 +14,21 @@
   <link rel="stylesheet" 
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" 
-    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--<link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./assets/css/style.css">
   <title>Weather Dashboard</title>
 </head>
 
 <body>
-  <header class="container-fluid text-center text-white bg-dark p-2 weather-header">
-    <h1>Weather Dashboard</h1>
+  <header class="container-fluid text-center  p-2 weather-header">
+    <h1><i class="fa-solid fa-umbrella"></i> Weather Dashboard</h1>
   </header>
 
   <!-- max-width for ultra wide resolutions -->
-  <div class="container-fluid" style="max-width: 1400px">
-    <div class="row">
+  <div class="container-fluid content pt-5 " >
+    <div class="row mx-auto" style="max-width: 1400px">
       <aside class="col-lg-3 pb-3 aside-container">
         <h2 id="form-heading" class="mt-1 h3 form-label">
           Search for a City:
@@ -40,7 +40,7 @@
                 aria-labelledby="form-heading" aria-controls="today forecast" />
               <div class="input-group-append">
                 <button type="submit" class="btn search-button" id="search-button" aria-label="submit search">
-                  Search
+                  <i class="fa-solid fa-magnifying-glass"></i> Search
                 </button>
                 <hr class="hr weather-hr" />
               </div>
@@ -67,6 +67,13 @@
     </div>
   </div>
 
+  <footer id="footer" role="contentinfo">
+    <div class="footer-content" id="powered-by">Weather Data Powered by OpenWeather</div>
+    <div class="footer-content" id="copyright">©Copyright N. K. Siokwu. All rights reserved.</div>
+  </footer>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/6dd6843fca.js" crossorigin="anonymous"></script>
   <!-- Moment.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <!-- jQuery -->

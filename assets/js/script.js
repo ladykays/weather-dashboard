@@ -111,8 +111,7 @@ $(document).ready(function () {
               .appendTo(forecastContainerEl);
 
             var h4El = $("<h4>")
-              .addClass("forecast-date")
-              //.appendTo(forecastContainer)
+              .addClass("forecast-date mt-3 ml-3")
               .text(date); 
 
             var tempEl = $("<div>")
@@ -161,7 +160,7 @@ $(document).ready(function () {
   // Function to add city to search history on the page
   function displaySearchHistory(city) {
     // Check if the city already exists on the page
-    if ($("li[data-name='" + city + "']").length == 0) {
+    if ($("li[data-name='" + city + "']").length == 0 && city !== "") {
       var liEl = $("<li>");
       liEl.addClass("list-group-item searched-city").text(city);
       liEl.attr("data-name", city);
@@ -190,7 +189,7 @@ $(document).ready(function () {
     getSearchHistory();
     
     // Check if the city already exists in the local storage array
-    if (!cities.includes(city)) {
+    if (!cities.includes(city) && city !== "") {
       // Add city to local storage array
       cities.push(city);
       
