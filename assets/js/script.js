@@ -163,7 +163,7 @@ $(document).ready(function () {
     // Check if the city already exists on the page
     if ($("li[data-name='" + city + "']").length == 0) {
       var liEl = $("<li>");
-      liEl.addClass("list-group-item").text(city);
+      liEl.addClass("list-group-item searched-city").text(city);
       liEl.attr("data-name", city);
       $("ul").prepend(liEl);
     }
@@ -244,9 +244,17 @@ $(document).ready(function () {
   $(document).on("click", ".list-group-item", function() {
     $("#today").empty();
     $("#forecast").empty(); 
+    $("#search-input").val("");
     city = $(this).attr("data-name");
     getWeatherData();
   }); 
+
+  // Event listener for a click on delete history
+  $("#delete-history").on("click", function() {
+    $(".searched-city").remove(); // removes the list of cities from the page
+    localStorage.clear(); // clears localStorage
+
+  });
 
 
 }); // end of the document ready function

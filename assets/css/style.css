@@ -58,7 +58,10 @@
   width: 100%;
 }  
 
-
+#delete-history {
+  background-color: #991223;
+  color: #ffffff;
+}
 /* TODO: Delete this later. The styling is just for me to see the sections I'm working on.*/
 .aside-container {
   background-color: coral;
