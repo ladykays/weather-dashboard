@@ -107,6 +107,7 @@ $(document).ready(function () {
 
 
           var date = moment(forecastResponse.list[0].dt_txt, "YYYY-MM-DD");
+          
           var dateList = []; 
 
           for (var i = 0; i < 5; i++) {
