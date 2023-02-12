@@ -155,7 +155,7 @@ footer {
 /* Media Queries */
 @media only screen and (max-width:320px) {
   .forecast-date{
-    font-size: 8vw;
+    font-size: 8vw; /* used vw so the text gets smaller in smaller screens*/
   }
 }
 
@@ -165,13 +165,17 @@ footer {
   }
 }
 
-@media only screen and (min-width:992px) and (max-width:1361px) {
+@media only screen and (min-width:992px) and (max-width:1362px) {
   .forecast-date {
     font-size: 1.5vw;
   }
 
   .data-element {
     font-size: 1.2vw;
+  }
+
+  #search-button {
+    margin: 20px 0;
   }
 }
 
