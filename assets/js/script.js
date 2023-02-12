@@ -105,19 +105,16 @@ $(document).ready(function () {
           $("#forecast").append(title5DayEl, forecastContainerEl);
           forecastContainerEl.append(forecastRowEl);
 
-          /* var date = moment(forecastResponse.list[0].dt_txt, "YYYY-MM-DD");
-          var dateFormatted = date.format("DD/MM/YYYY");
-          var dateList = []; */
+
+          var date = moment(forecastResponse.list[0].dt_txt, "YYYY-MM-DD");
+          var dateList = []; 
 
           for (var i = 0; i < 5; i++) {
-            // Multiply by 1000 to convert the Unix timestamp in seconds to miliseconds
-            var date = new Date((forecastResponse.list[((i + 1) * 8) - 1].dt) * 1000).toLocaleDateString();
-            console.log(date);  
-
             // Starting from the current day,add 1 day every time, to get the list of dates for the next five days.
-            /* var currentDate = moment(date);
+            var currentDate = moment(date);
             date = currentDate.add(1,'day').format('YYYY-MM-DD')+" 12:00:00";
-            dateList.push(date); */
+            var dateFormatted = moment(date, "YYYY-MM-DD").format("dddd D/M/YYYY"); // update the date format
+            dateList.push(date); 
 
             // Create elements for displaying future weather data
             //====================================================== 
@@ -127,8 +124,8 @@ $(document).ready(function () {
 
             var h4El = $("<h4>")
               .addClass("forecast-date mt-3 ml-2")
-              .text(date);
-              //.text(dateFormatted); 
+              //.text(date);
+              .text(dateFormatted); 
 
             var tempEl = $("<div>")
               .addClass("data-element");
@@ -150,7 +147,7 @@ $(document).ready(function () {
 
             // Update the page with the newly created elements
             //====================================================== 
-            var iconURL = "http://openweathermap.org/img/wn/" + forecastResponse.list[i].weather[0].icon + ".png"; // Weather icon URL
+            var iconURL = "http://openweathermap.org/img/wn/" + forecastResponse.list[i].weather[0].icon + "@2x.png"; // Weather icon URL
             var tempK = forecastResponse.list[i].main.temp;
             var tempC = (tempK - 273.15).toFixed(2); // Converts Kelvin to Celsius and rounds it to 2 decimal places
             console.log(tempK);
