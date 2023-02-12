@@ -96,19 +96,23 @@ $(document).ready(function () {
             .text("5-Day Forecast");
 
           var forecastContainerEl = $("<div>")
-            .addClass("forecast-container");
+            .addClass("container-fluid pl-0 pr-0 forecast-container ");
+
+          var forecastRowEl = $("<div>")
+            .addClass("row  justify-content-between forecast-row");
 
           $("#forecast").append(title5DayEl, forecastContainerEl);
+          forecastContainerEl.append(forecastRowEl);
           for (var i = 0; i < 5; i++) {
             // Multiply by 1000 to convert the Unix timestamp in seconds to miliseconds
             var date = new Date((forecastResponse.list[((i + 1) * 8) - 1].dt) * 1000).toLocaleDateString();
             console.log(date);  
 
-            // Create elements for displaying current weather data
+            // Create elements for displaying future weather data
             //====================================================== 
             var forecastData = $("<div>")
-              .addClass("forecast-data")
-              .appendTo(forecastContainerEl);
+              .addClass("card col-12 col-sm-12  col-lg-2 forecast-data") //col-xs-12 not working in bootstrap 4 so used col-* where * is any digit between 1 and 12
+              .appendTo(forecastRowEl);
 
             var h4El = $("<h4>")
               .addClass("forecast-date mt-3 ml-2")

@@ -4,9 +4,17 @@
   --darkText: #117a88; 
 }
 
-p {
-  font-size: 20px;
+body {
+  font-size: 18px;
   color: #0d555f;
+}
+
+/* Combined Sections */
+#history,
+.current-weather-container,
+.forecast-data {
+  border: 1px solid var(--darkText);
+  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,.15);
 }
 
 /* Header Section */
@@ -17,6 +25,12 @@ p {
 
 .content {
   background-color: var(--lightBackground);
+  height: auto;
+  padding-bottom: 10px;
+}
+
+.allButFooter {
+  min-height: calc(100vh - 200px);  /* to make my footer stick to the bottom of the page */
 }
 
 /* Left container Style */
@@ -55,13 +69,6 @@ p {
   background-color: #AFEDF4;
 }
 
-#history,
-.current-weather-container,
-.forecast-data {
-  border: 1px solid var(--darkText);
-  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,.15);
-}
-
 #delete-history {
   background-color: var(--darkBackground);
   color: #ffffff;
@@ -94,11 +101,15 @@ p {
 }
 
 .forecast-container {
-  display: flex;
+  /*display: grid;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5px;
+  padding: 0 5px; */
+}
+
+.forecast-row {
+  margin: 0px;
 }
 
 .forecast-date {
@@ -106,10 +117,16 @@ p {
 }
 
 .forecast-data {
-  width: 20%;
-  margin: 10px;
+  /* width: 20%;
+  margin: 10px; */
   border: 1px solid var(--darkText);
   padding: 10px;
+  background-color: var(--lightBackground);
+}
+
+.forecast-icon {
+  max-width: 100px;
+  max-height: 100px;
 }
 
 #forcast {
@@ -120,9 +137,46 @@ p {
 }
 
 .heading-5-day {
-  display: block;
   width: 100%;
-  padding: 0 15px;
   color: var(--darkText);
 }  
 
+/* Footer Styles */
+footer {
+  background-color: var(--darkBackground);
+  color: #FFFFFF;
+  height: 120px;
+}
+
+.footer-content {
+
+}
+
+/* Media Queries */
+@media only screen and (max-width:320px) {
+  .forecast-date{
+    font-size: 8vw;
+  }
+}
+
+@media only screen and (min-width:320px) and (max-width:576px) {
+  .forecast-date{
+    font-size: 5vw;
+  }
+}
+
+@media only screen and (min-width:992px) and (max-width:1361px) {
+  .forecast-date {
+    font-size: 1.5vw;
+  }
+
+  .data-element {
+    font-size: 1.2vw;
+  }
+}
+
+@media only screen and (min-width:0px) and (max-width:992px) {
+  .forecast-data {
+    margin-bottom: 20px;
+  }
+}
