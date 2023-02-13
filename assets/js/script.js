@@ -50,10 +50,10 @@ $(document).ready(function () {
           .text(" - " + today); 
         cityName = $("<h2>")
           .addClass("city-name")
-          .text(cityName); 
-        country = $("<h2>")
+          .text(cityName + " " + country); 
+        /* country = $("<h2>")
           .addClass("country")
-          .text(country);
+          .text(country); */
         var weatherIconEl = $("<img>")
           .addClass("weather-icon")
           .attr("src", iconURL);
@@ -66,11 +66,11 @@ $(document).ready(function () {
           .text("Humidity: " + humidity + "%");
         var windSpeedEl = $("<p>")
           .addClass("wind-speed")
-          .text("Wind Speed:  " + windSpeedK + " km/h")
+          .text("Wind Speed:  " + windSpeedK + " km/h");
 
         // Add the newly created elements to the DOM
-        headingContainer.append(cityName, country, today, weatherIconEl);
-        $(".current").append(tempEl, windSpeedEl,  humidityEl,);
+        headingContainer.append(cityName, today);
+        $(".current").append(weatherIconEl, tempEl, windSpeedEl,  humidityEl,);
         
       } // end getCurrentWeather function
 
@@ -91,7 +91,7 @@ $(document).ready(function () {
         }).then(function (forecastResponse) {
           console.log(forecastResponse);
             
-
+          // Create container elements for displaying the 5-day weather data
           var title5DayEl = $("<h2>")
             .addClass("heading-5-day")
             .text("5-Day Forecast");
@@ -106,20 +106,26 @@ $(document).ready(function () {
           forecastContainerEl.append(forecastRowEl);
 
 
-          var date = moment(forecastResponse.list[0].dt_txt, "YYYY-MM-DD");
-          
-          var dateList = []; 
+          // Store the moment object for the forecast dates
+          /* var date = moment(forecastResponse.list[0].dt_txt, "YYYY-MM-DD");
+          var dateList = [];  */
 
-          for (var i = 0; i < 5; i++) {
+          for (var i = 0; i < forecastResponse.list.length; i++) {
+          //for (var i = 0; i < 5; i++) {
+          //for (var i = 0; i < 40; i+=8) {
             // Starting from the current day,add 1 day every time, to get the list of dates for the next five days.
-            var currentDate = moment(date);
+            /* var currentDate = moment(date);
             date = currentDate.add(1,'day').format('YYYY-MM-DD')+" 12:00:00";
             var dateFormatted = moment(date, "YYYY-MM-DD").format("dddd D/M/YYYY"); // update the date format
-            dateList.push(date); 
+            dateList.push(date); */ 
 
-            // Create elements for displaying future weather data
-            //====================================================== 
-            var forecastData = $("<div>")
+            var date = new Date(forecastResponse.list[i].dt * 1000);
+            var dateFormatted = moment(date, "YYYY-MM-DD").format("dddd D/M/YYYY"); // update the date format
+            var dateList = [];
+            dateList.push(date);
+
+            if (forecastResponse.list[i].dt_txt.indexOf("12:00:00") !== -1) {
+              var forecastData = $("<div>")
               .addClass("card col-12 col-sm-12  col-lg-2 forecast-data") //col-xs-12 not working in bootstrap 4 so used col-* where * is any digit between 1 and 12
               .appendTo(forecastRowEl);
 
@@ -138,16 +144,11 @@ $(document).ready(function () {
              .addClass("data-element");
 
             var iconEl = $("<img>")
-             .addClass("forecast-icon");
-
-
+             .addClass("forecast-icon"); 
 
             // Append the newly created elements to the DOM
             forecastData.append(h4El, iconEl, tempEl, windSpeedEl, humidityEl);
-            
 
-            // Update the page with the newly created elements
-            //====================================================== 
             var iconURL = "http://openweathermap.org/img/wn/" + forecastResponse.list[i].weather[0].icon + "@2x.png"; // Weather icon URL
             var tempK = forecastResponse.list[i].main.temp;
             var tempC = (tempK - 273.15).toFixed(2); // Converts Kelvin to Celsius and rounds it to 2 decimal places
@@ -162,6 +163,55 @@ $(document).ready(function () {
             tempEl.text("Temp: " + tempC + " °C");
             windSpeedEl.text("WindSpeed: " + windSpeedK + "km/h");
             humidityEl.text("Humidity: " + humidity + "%");
+            }
+
+            // Create elements for displaying future weather data
+            //====================================================== 
+            /* var forecastData = $("<div>")
+              .addClass("card col-12 col-sm-12  col-lg-2 forecast-data") //col-xs-12 not working in bootstrap 4 so used col-* where * is any digit between 1 and 12
+              .appendTo(forecastRowEl);
+
+            var h4El = $("<h4>")
+              .addClass("forecast-date mt-3 ml-2")
+              //.text(date);
+              .text(dateFormatted); 
+
+            var tempEl = $("<div>")
+              .addClass("data-element");
+
+            var windSpeedEl = $("<div>")
+              .addClass("data-element");
+
+            var humidityEl = $("<div>")
+             .addClass("data-element");
+
+            var iconEl = $("<img>")
+             .addClass("forecast-icon"); 
+
+            // Append the newly created elements to the DOM
+            forecastData.append(h4El, iconEl, tempEl, windSpeedEl, humidityEl); */
+            /* if ((forecastResponse.list[i].dt_txt).endsWith("12:00:00")) {
+              // Append the newly created elements to the DOM
+              forecastData.append(h4El, iconEl, tempEl, windSpeedEl, humidityEl);
+            } */ 
+            
+
+            // Update the page with the newly created elements
+            //====================================================== 
+            /* var iconURL = "http://openweathermap.org/img/wn/" + forecastResponse.list[i].weather[0].icon + "@2x.png"; // Weather icon URL
+            var tempK = forecastResponse.list[i].main.temp;
+            var tempC = (tempK - 273.15).toFixed(2); // Converts Kelvin to Celsius and rounds it to 2 decimal places
+            console.log(tempK);
+            console.log(tempC);
+            var windSpeedM = forecastResponse.list[i].wind.speed;
+            var windSpeedK = (windSpeedM * 3.6).toFixed(2); // converts m/s to km/h
+            var humidity = forecastResponse.list[i].main.humidity;
+
+            title5DayEl.text("5-Day Forecast");
+            iconEl.attr("src", iconURL);
+            tempEl.text("Temp: " + tempC + " °C");
+            windSpeedEl.text("WindSpeed: " + windSpeedK + "km/h");
+            humidityEl.text("Humidity: " + humidity + "%"); */
             
 
           } // end of for loop

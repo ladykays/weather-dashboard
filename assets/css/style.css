@@ -76,7 +76,6 @@ body {
 
 /* Right Container Style */
 .current-weather-container {
-  padding: 5rem 0;
   margin-top: 10px;
   background-color: var(--lightBackground);
 }
@@ -94,18 +93,6 @@ body {
   font-size: 2.5rem;
   font-weight: bold;
   margin: 0 5px;
-}
-
-.weather-icon {
-  color: purple;
-}
-
-.forecast-container {
-  /*display: grid;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 5px; */
 }
 
 .forecast-row {
@@ -148,20 +135,32 @@ footer {
   height: 120px;
 }
 
-.footer-content {
-
-}
-
 /* Media Queries */
 @media only screen and (max-width:320px) {
   .forecast-date{
     font-size: 8vw; /* used vw so the text gets smaller in smaller screens*/
+  }
+  .heading-container {
+    flex-direction: column;
+  }
+  .city-name,
+  .country,
+  .today {
+    font-size: 5vw;
   }
 }
 
 @media only screen and (min-width:320px) and (max-width:576px) {
   .forecast-date{
     font-size: 5vw;
+  }
+  .heading-container {
+    flex-direction: column;
+  }
+  .city-name,
+  .country,
+  .today {
+    font-size: 8vw;
   }
 }
 
