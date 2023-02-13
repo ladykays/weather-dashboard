@@ -14,11 +14,13 @@ This web application is a dynamic weather dashboard that provides the current we
 * Moment.js
 
 ## Demo
+![Gif](./assets/images/weather-dashboard.gif)
 
 ## Screenshot
 ![Screenshot](./assets/images/screenshot.png)
+
 ## Live Application
-![Gif](./assets/images/weather-dashboard.gif)
+[Weather Dashboard](https://ladykays.github.io/weather-dashboard)
 
 ## Credit
 * Normalize.CSS : https://byby.dev/normalize-css
@@ -27,3 +29,6 @@ This web application is a dynamic weather dashboard that provides the current we
 * https://www.youtube.com/watch?v=QEu8_5bYm-w
 * https://www.webdevsplanet.com/post/bootstrap-col-xs-*-not-working?utm_content=cmp-true
 * https://stackoverflow.com/questions/643879/css-to-make-html-page-footer-stay-at-bottom-of-the-page-with-a-minimum-height-b
+
+## Licence
+Please refer to LICENCE in the repository
