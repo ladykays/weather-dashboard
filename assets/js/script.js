@@ -35,14 +35,28 @@ $(document).ready(function () {
         var currentWeatherIcon = response.weather[0].icon;
         var iconURL = "http://openweathermap.org/img/wn/" + currentWeatherIcon + "@2x.png"; // Weather icon URL
         var tempK = response.main.temp;
+        var tempC = (tempK - 273.15).toFixed(2); // Convert Kelvin to Celsius
         var humidity = response.main.humidity;
         var windSpeedM = response.wind.speed;
         var windSpeedK = (windSpeedM * 3.6).toFixed(2); // converts m/s to km/h
 
         console.log(cityName, country, currentWeatherIcon, iconURL, tempK, humidity, windSpeedM, windSpeedK);
 
-        // Create elements for displaying current weather data
-        var headingContainer = $("<div>")
+        // Using a string literal to create elements for displaying current weather data
+        var currentWeatherCardHTML = `
+          <div class="heading-container">
+            <h2 class="city-name country today">${cityName} ${country} - ${today}</h2> 
+            <img class="weather-icon" src=${iconURL} alt="weather">
+            <p class="temp"><i class="fa-solid fa-temperature-three-quarters pr-3"></i> Temperature: ${tempC}°C</p>
+            <p class="temp"><i class="fa-solid fa-wind pr-2"></i> Wind Speed: ${windSpeedK}km/h</p>
+            <p class="humidity"><i class="fa-solid fa-droplet pr-3"></i> Humidity: ${humidity}%</p>
+          </div>
+        `; 
+        
+        // Add the newly created elements to the DOM
+        $(".current").prepend(currentWeatherCardHTML);
+
+        /* var headingContainer = $("<div>")
           .addClass("heading-container")
           .prependTo(".current");
         today = $("<h2>")
@@ -51,9 +65,6 @@ $(document).ready(function () {
         cityName = $("<h2>")
           .addClass("city-name")
           .text(cityName + " " + country); 
-        /* country = $("<h2>")
-          .addClass("country")
-          .text(country); */
         var weatherIconEl = $("<img>")
           .addClass("weather-icon")
           .attr("src", iconURL);
@@ -66,11 +77,11 @@ $(document).ready(function () {
           .text("Humidity: " + humidity + "%");
         var windSpeedEl = $("<p>")
           .addClass("wind-speed")
-          .text("Wind Speed:  " + windSpeedK + " km/h");
+          .text("Wind Speed:  " + windSpeedK + " km/h"); 
 
         // Add the newly created elements to the DOM
         headingContainer.append(cityName, today);
-        $(".current").append(weatherIconEl, tempEl, windSpeedEl,  humidityEl,);
+        $(".current").append(weatherIconEl, tempEl, windSpeedEl,  humidityEl,); */
         
       } // end getCurrentWeather function
 

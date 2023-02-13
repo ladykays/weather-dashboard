@@ -30,7 +30,7 @@ body {
 }
 
 .allButFooter {
-  min-height: calc(100vh - 200px);  /* to make my footer stick to the bottom of the page */
+  min-height: calc(100vh - 150px);  /* to make my footer stick to the bottom of the page */
 }
 
 /* Left container Style */
@@ -83,8 +83,13 @@ body {
 .heading-container {
   display: flex;
   margin-left: 10px;
+  flex-direction: column;
 }
 
+.weather-icon {
+  max-width: 200px;
+  max-height: 200px;
+}
 .city-name,
 .country,
 .date,
@@ -94,6 +99,8 @@ body {
   font-weight: bold;
   margin: 0 5px;
 }
+
+
 
 .forecast-row {
   margin: 0px;
@@ -132,7 +139,8 @@ body {
 footer {
   background-color: var(--darkBackground);
   color: #FFFFFF;
-  height: 120px;
+  height: 80px;
+  font-size: 16px;
 }
 
 /* Media Queries */
